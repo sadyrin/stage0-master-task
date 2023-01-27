@@ -1,5 +1,6 @@
 package com.epam.algorithms;
 
+
 /**
  * Here are the tasks for working with the arrays.
  * <p>
@@ -133,17 +134,7 @@ public class ArrayTasks {
      * arr = [[5, 4], [7]]       -> [[7], [4, 5]]
      */
     public static int[][] sortRaggedArray(int[][] arr) {
-// sorting array of subarrays
-        for(int i = 0; i < arr.length; i++){
-            for(int j = i + 1; j < arr.length; j++){
-                if(arr[i].length > arr[j].length){
-                    int[] temp = arr[i];
-                    arr[i] = arr[j];
-                    arr[j] = temp;
-                }
-            }
-        }
-//sorting elements of each subarray
+        //sorting elements of each subarray
         for(int k = 0; k < arr.length; k++){
             for(int i = 0; i < arr[k].length; i++){
                 for(int j = i + 1; j < arr[k].length; j++){
@@ -152,10 +143,33 @@ public class ArrayTasks {
                         arr[k][i] = arr[k][j];
                         arr[k][j] = temp;
                     }
+
+                }
+            }
+        }
+
+        // sorting array of subarrays
+        while(!isSorted(arr)){
+            for(int i = arr.length - 1; i >= 1; i--){
+                if(arr[i].length < arr[i - 1].length){
+                    int[] temp = arr[i];
+                    arr[i] = arr[i - 1];
+                    arr[i - 1] = temp;
                 }
             }
         }
 
         return arr;
     }
+
+    private static boolean isSorted(int[][] arr){
+        for(int i = 0; i < arr.length - 1; i++){
+            if(arr[i].length > arr[i + 1].length){
+                return false;
+            }
+        }
+
+        return true;
+    }
+
 }
